@@ -17,9 +17,10 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_TALUK= "taluk";
     public static final String COLUMN_VILLAGE= "village";
+    public static final String COLUMN_ADDRESS= "address";
     public static final String COLUMN_LAND_NO= "land_no";
     public static final String COLUMN_MOBLIE_NO= "moblie_no";
-
+    public static final String COLUMN_EMAIL= "email";
 
 
     String createTable() {
@@ -27,8 +28,10 @@ public class DbHelper extends SQLiteOpenHelper {
                 + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COLUMN_TALUK + " TEXT,"
                 + COLUMN_VILLAGE + " TEXT,"
+               + COLUMN_ADDRESS + " TEXT,"
                 + COLUMN_LAND_NO + " TEXT,"
-                + COLUMN_MOBLIE_NO + " TEXT"
+                + COLUMN_MOBLIE_NO + " TEXT,"
+               + COLUMN_EMAIL + " TEXT"
                 + ")";
        return sql;
     }
@@ -50,14 +53,16 @@ public class DbHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long insertContact(String taluke,String village,String land_no,String mobile_no) {
+    public long insertContact(String taluke,String village,String address,String land_no,String mobile_no,String email) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
         cv.put(COLUMN_TALUK, taluke);
         cv.put(COLUMN_VILLAGE, village);
+        cv.put(COLUMN_ADDRESS, address);
         cv.put(COLUMN_LAND_NO, land_no);
         cv.put(COLUMN_MOBLIE_NO, mobile_no);
+        cv.put(COLUMN_EMAIL, email);
 
         long id = db.insert(TABLE_NAME, null, cv);
         db.close();
@@ -77,8 +82,10 @@ public class DbHelper extends SQLiteOpenHelper {
                 cursor.getInt(cursor.getColumnIndex(COLUMN_ID)),
                 cursor.getString(cursor.getColumnIndex(COLUMN_TALUK)),
                 cursor.getString(cursor.getColumnIndex(COLUMN_VILLAGE)),
+                cursor.getString(cursor.getColumnIndex(COLUMN_ADDRESS)),
                 cursor.getString(cursor.getColumnIndex(COLUMN_LAND_NO)),
-                cursor.getString(cursor.getColumnIndex(COLUMN_MOBLIE_NO))
+                cursor.getString(cursor.getColumnIndex(COLUMN_MOBLIE_NO)),
+                cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL))
         );
         cursor.close();
         return contact;
@@ -98,8 +105,10 @@ public class DbHelper extends SQLiteOpenHelper {
                         cursor.getInt(cursor.getColumnIndex(COLUMN_ID)),
                         cursor.getString(cursor.getColumnIndex(COLUMN_TALUK)),
                         cursor.getString(cursor.getColumnIndex(COLUMN_VILLAGE)),
+                        cursor.getString(cursor.getColumnIndex(COLUMN_ADDRESS)),
                         cursor.getString(cursor.getColumnIndex(COLUMN_LAND_NO)),
-                        cursor.getString(cursor.getColumnIndex(COLUMN_MOBLIE_NO))
+                        cursor.getString(cursor.getColumnIndex(COLUMN_MOBLIE_NO)),
+                        cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL))
                 );
 
                 contacts.add(contact);
