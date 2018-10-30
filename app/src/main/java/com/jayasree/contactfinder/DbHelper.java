@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DbHelper extends SQLiteOpenHelper {
-
+    String TAG = "vw";
     public static final String TABLE_NAME = "contact";
 
     public static final String COLUMN_ID = "id";
@@ -90,6 +90,22 @@ public class DbHelper extends SQLiteOpenHelper {
         );
         cursor.close();
         return contact;
+    }
+
+    public List<String> getAllTaluk(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] column = {COLUMN_TALUK};
+        Cursor cursor = db.query(TABLE_NAME, column, null, null, COLUMN_TALUK, null, null);
+        Log.d(TAG, "getAllTaluk: "+cursor.getCount());
+        List<String> talukList = new ArrayList<>();
+        cursor.moveToFirst();
+        do {
+            String taluk = cursor.getString(cursor.getColumnIndex(COLUMN_TALUK));
+            talukList.add(taluk);
+
+        } while (cursor.moveToNext());
+        cursor.close();
+        return talukList;
     }
 
     public List<Contact> getAllContact() {
