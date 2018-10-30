@@ -135,6 +135,32 @@ public class DbHelper extends SQLiteOpenHelper {
         return contacts;
     }
 
+    public List<Contact> getContactFrom(String taluk) {
+        List<Contact> contacts = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selection=COLUMN_TALUK +" like ?";
+        String[] selectionArg = {taluk};
+        Cursor cursor = db.query(TABLE_NAME, null, selection, selectionArg, null, null, null);
+        Log.d(TAG, "getContactFrom: "+cursor.getCount());
+        if (cursor.moveToFirst()) {
+            do {
+                Contact contact = new Contact(
+                        cursor.getInt(cursor.getColumnIndex(COLUMN_ID)),
+                        cursor.getString(cursor.getColumnIndex(COLUMN_TALUK)),
+                        cursor.getString(cursor.getColumnIndex(COLUMN_VILLAGE)),
+                        cursor.getString(cursor.getColumnIndex(COLUMN_ADDRESS)),
+                        cursor.getString(cursor.getColumnIndex(COLUMN_LAND_NO)),
+                        cursor.getString(cursor.getColumnIndex(COLUMN_MOBLIE_NO)),
+                        cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL))
+                );
+
+                contacts.add(contact);
+            } while (cursor.moveToNext());
+        }
+        db.close();
+        return contacts;
+    }
+
     public int getCount() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null);
