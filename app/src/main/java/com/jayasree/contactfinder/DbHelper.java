@@ -12,28 +12,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DbHelper extends SQLiteOpenHelper {
+
     public static final String TABLE_NAME = "contact";
 
     public static final String COLUMN_ID = "id";
-    public static final String COLUMN_TALUK= "taluk";
-    public static final String COLUMN_VILLAGE= "village";
-    public static final String COLUMN_ADDRESS= "address";
-    public static final String COLUMN_LAND_NO= "land_no";
-    public static final String COLUMN_MOBLIE_NO= "moblie_no";
-    public static final String COLUMN_EMAIL= "email";
+    public static final String COLUMN_TALUK = "taluk";
+    public static final String COLUMN_VILLAGE = "village";
+    public static final String COLUMN_ADDRESS = "address";
+    public static final String COLUMN_LAND_NO = "land_no";
+    public static final String COLUMN_MOBLIE_NO = "moblie_no";
+    public static final String COLUMN_EMAIL = "email";
 
 
     String createTable() {
-       String sql = "CREATE TABLE " + TABLE_NAME + "("
+        String sql = "CREATE TABLE " + TABLE_NAME + "("
                 + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COLUMN_TALUK + " TEXT,"
                 + COLUMN_VILLAGE + " TEXT,"
-               + COLUMN_ADDRESS + " TEXT,"
+                + COLUMN_ADDRESS + " TEXT,"
                 + COLUMN_LAND_NO + " TEXT,"
                 + COLUMN_MOBLIE_NO + " TEXT,"
-               + COLUMN_EMAIL + " TEXT"
+                + COLUMN_EMAIL + " TEXT"
                 + ")";
-       return sql;
+        return sql;
     }
 
 
@@ -53,7 +54,7 @@ public class DbHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long insertContact(String taluke,String village,String address,String land_no,String mobile_no,String email) {
+    public long insertContact(String taluke, String village, String address, String land_no, String mobile_no, String email) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -74,7 +75,7 @@ public class DbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_NAME, null,
-                COLUMN_ID + "=?",new String[]{String.valueOf(id)}, null, null, null, null);
+                COLUMN_ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);
 
         if (cursor != null)
             cursor.moveToFirst();
@@ -94,7 +95,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public List<Contact> getAllContact() {
         List<Contact> contacts = new ArrayList<>();
 
-        String selectQuery = "SELECT  * FROM " + TABLE_NAME ;
+        String selectQuery = "SELECT  * FROM " + TABLE_NAME;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -118,10 +119,10 @@ public class DbHelper extends SQLiteOpenHelper {
         return contacts;
     }
 
-    public int getCount(){
+    public int getCount() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null);
-        int count=cursor.getCount();
+        int count = cursor.getCount();
         cursor.close();
         return count;
     }
