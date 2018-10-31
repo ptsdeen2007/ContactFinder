@@ -51,7 +51,6 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         String moblie_no = getArguments().getString(COLUMN_MOBLIE_NO);
         String email = getArguments().getString(COLUMN_EMAIL);
 
-        Toast.makeText(getContext(), "village " + village, Toast.LENGTH_SHORT).show();
         TextView tv_taluk = getView().findViewById(R.id.tv_taluk);
         TextView tv_village = getView().findViewById(R.id.tv_village);
         TextView tv_address = getView().findViewById(R.id.tv_address);

@@ -39,10 +39,8 @@ public class ContactActivity extends AppCompatActivity {
       talukeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
           @Override
           public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-              Toast.makeText(ContactActivity.this, contacts.get(i), Toast.LENGTH_SHORT).show();
               List<Contact> contactsFromTaluke = dbHelper.getContactFrom(contacts.get(i));
 
-              Toast.makeText(ContactActivity.this, contactsFromTaluke.size()+"", Toast.LENGTH_SHORT).show();
                contactAdapter = new ContactAdapter(ContactActivity.this, contactsFromTaluke);
 
               lvContact.setAdapter(contactAdapter);
@@ -60,7 +58,6 @@ public class ContactActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Contact contact = contactAdapter.getItem(i);
-                Toast.makeText(ContactActivity.this, "clicked "+contact.village, Toast.LENGTH_SHORT).show();
 
                 BottomSheetFragment bottomSheetFragment = new BottomSheetFragment();
                 Bundle bundle = new Bundle();
