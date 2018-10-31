@@ -9,10 +9,19 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import static com.jayasree.contactfinder.DbInfo.COLUMN_ADDRESS;
+import static com.jayasree.contactfinder.DbInfo.COLUMN_EMAIL;
+import static com.jayasree.contactfinder.DbInfo.COLUMN_ID;
+import static com.jayasree.contactfinder.DbInfo.COLUMN_LAND_NO;
+import static com.jayasree.contactfinder.DbInfo.COLUMN_MOBLIE_NO;
+import static com.jayasree.contactfinder.DbInfo.COLUMN_TALUK;
+import static com.jayasree.contactfinder.DbInfo.COLUMN_VILLAGE;
+import static com.jayasree.contactfinder.DbInfo.TABLE_NAME;
+
 import java.util.List;
 
 public class ContactActivity extends AppCompatActivity {
-
+    ContactAdapter contactAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +43,8 @@ public class ContactActivity extends AppCompatActivity {
               List<Contact> contactsFromTaluke = dbHelper.getContactFrom(contacts.get(i));
 
               Toast.makeText(ContactActivity.this, contactsFromTaluke.size()+"", Toast.LENGTH_SHORT).show();
-              ContactAdapter contactAdapter = new ContactAdapter(ContactActivity.this, contactsFromTaluke);
+               contactAdapter = new ContactAdapter(ContactActivity.this, contactsFromTaluke);
+
               lvContact.setAdapter(contactAdapter);
 
           }
@@ -44,5 +54,28 @@ public class ContactActivity extends AppCompatActivity {
 
           }
       });
+
+
+        lvContact.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Contact contact = contactAdapter.getItem(i);
+                Toast.makeText(ContactActivity.this, "clicked "+contact.village, Toast.LENGTH_SHORT).show();
+
+                BottomSheetFragment bottomSheetFragment = new BottomSheetFragment();
+                Bundle bundle = new Bundle();
+
+                bundle.putInt(COLUMN_ID,contact.getId());
+                bundle.putString(COLUMN_TALUK,contact.getTaluk());
+                bundle.putString(COLUMN_VILLAGE,contact.getVillage());
+                bundle.putString(COLUMN_ADDRESS,contact.getAddress());
+                bundle.putString(COLUMN_LAND_NO,contact.getLand_no());
+                bundle.putString(COLUMN_MOBLIE_NO,contact.getMoblie_no());
+                bundle.putString(COLUMN_EMAIL,contact.getEmail());
+
+                bottomSheetFragment.setArguments(bundle);
+                bottomSheetFragment.show(getSupportFragmentManager(),bottomSheetFragment.getTag());
+            }
+        });
     }
 }

@@ -11,21 +11,22 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.jayasree.contactfinder.DbInfo.COLUMN_ADDRESS;
+import static com.jayasree.contactfinder.DbInfo.COLUMN_EMAIL;
+import static com.jayasree.contactfinder.DbInfo.COLUMN_ID;
+import static com.jayasree.contactfinder.DbInfo.COLUMN_LAND_NO;
+import static com.jayasree.contactfinder.DbInfo.COLUMN_MOBLIE_NO;
+import static com.jayasree.contactfinder.DbInfo.COLUMN_TALUK;
+import static com.jayasree.contactfinder.DbInfo.COLUMN_VILLAGE;
+import static com.jayasree.contactfinder.DbInfo.TABLE_NAME;
+
 public class DbHelper extends SQLiteOpenHelper {
     String TAG = "vw";
-    public static final String TABLE_NAME = "contact";
-
-    public static final String COLUMN_ID = "id";
-    public static final String COLUMN_TALUK = "taluk";
-    public static final String COLUMN_VILLAGE = "village";
-    public static final String COLUMN_ADDRESS = "address";
-    public static final String COLUMN_LAND_NO = "land_no";
-    public static final String COLUMN_MOBLIE_NO = "moblie_no";
-    public static final String COLUMN_EMAIL = "email";
 
 
     String createTable() {
-        String sql = "CREATE TABLE " + TABLE_NAME + "("
+        String sql = "CREATE TABLE "
+                + TABLE_NAME + "("
                 + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COLUMN_TALUK + " TEXT,"
                 + COLUMN_VILLAGE + " TEXT,"
