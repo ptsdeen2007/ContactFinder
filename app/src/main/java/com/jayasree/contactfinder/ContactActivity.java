@@ -18,10 +18,14 @@ import static com.jayasree.contactfinder.DbInfo.COLUMN_TALUK;
 import static com.jayasree.contactfinder.DbInfo.COLUMN_VILLAGE;
 import static com.jayasree.contactfinder.DbInfo.TABLE_NAME;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class ContactActivity extends AppCompatActivity {
     ContactAdapter contactAdapter;
+    private String all;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +35,9 @@ public class ContactActivity extends AppCompatActivity {
 
         final DbHelper dbHelper = new DbHelper(this);
         final List<String> contacts = dbHelper.getAllTaluk();
-
+        all = "All";
+        contacts.add(all);
+        Collections.sort(contacts);
         Spinner talukeSpinner = findViewById(R.id.spinner_taluk);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, contacts);
         talukeSpinner.setAdapter(adapter);
@@ -39,10 +45,9 @@ public class ContactActivity extends AppCompatActivity {
       talukeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
           @Override
           public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-              List<Contact> contactsFromTaluke = dbHelper.getContactFrom(contacts.get(i));
-
+              String taluk = contacts.get(i);
+              List<Contact> contactsFromTaluke =taluk.equals(all) ? dbHelper.getAllContact(): dbHelper.getContactFrom(taluk);
                contactAdapter = new ContactAdapter(ContactActivity.this, contactsFromTaluke);
-
               lvContact.setAdapter(contactAdapter);
 
           }
