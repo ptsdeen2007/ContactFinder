@@ -62,11 +62,15 @@
         android:textColor="@color/color_data" />
 
     <LinearLayout
+        android:id="@+id/ll_land_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true">
 
         <ImageView
             android:id="@+id/imageView"
@@ -99,14 +103,16 @@
 
     </LinearLayout>
 
-
-
     <LinearLayout
+        android:id="@+id/ll_mob_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true">
 
         <ImageView
             android:layout_width="30dp"
@@ -139,11 +145,16 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_email_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        >
 
         <ImageView
             android:layout_width="30dp"
@@ -174,11 +185,5 @@
         </LinearLayout>
 
     </LinearLayout>
-   <!-- <TextView
-        android:id="@+id/just_for_margin"
-        android:layout_marginTop="4dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""/>-->
 
 </LinearLayout>
