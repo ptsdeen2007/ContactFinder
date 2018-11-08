@@ -103,7 +103,7 @@ public class ContactActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                Toast.makeText(ContactActivity.this, "submitted", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(ContactActivity.this, "submitted", Toast.LENGTH_SHORT).show();
                 return false;
             }
 
