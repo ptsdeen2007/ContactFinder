@@ -1,7 +1,13 @@
 package com.jayasree.contactfinder;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,13 +31,14 @@ import java.util.List;
 public class ContactActivity extends AppCompatActivity {
     ContactAdapter contactAdapter;
     private String all;
+    private ListView lvContact;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
 
-        final ListView lvContact = findViewById(R.id.lv_contacts);
+        lvContact = findViewById(R.id.lv_contacts);
 
         final DbHelper dbHelper = new DbHelper(this);
         final List<String> contacts = dbHelper.getAllTaluk();
@@ -79,5 +86,47 @@ public class ContactActivity extends AppCompatActivity {
                 bottomSheetFragment.show(getSupportFragmentManager(),bottomSheetFragment.getTag());
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main,menu);
+        SearchManager searchManager = (SearchManager)
+                getSystemService(Context.SEARCH_SERVICE);
+        MenuItem searchMenuItem = menu.findItem(R.id.app_bar_search);
+        SearchView searchView = (SearchView) searchMenuItem.getActionView();
+
+        searchView.setSearchableInfo(searchManager.
+                getSearchableInfo(getComponentName()));
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setQueryHint("Search Village or Taluk");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                Toast.makeText(ContactActivity.this, "submitted", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                ContactAdapter adapter = (ContactAdapter) lvContact.getAdapter();
+                adapter.filter(s);
+
+                return false;
+            }
+        });
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.app_bar_search:{
+                Toast.makeText(this, "menu cliked", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
